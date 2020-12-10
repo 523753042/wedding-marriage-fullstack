@@ -1,23 +1,23 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Attend } from '../models/attend.entity';
+import { Comment } from '../models/comment.entity';
 import { UpdateResult, DeleteResult } from 'typeorm';
 
 @Injectable()
-export class AttendService {
+export class CommentService {
 
     /**
      *
      */
-    constructor(@InjectRepository(Attend)
-    private contactRepository: Repository<Attend>) {
+    constructor(@InjectRepository(Comment)
+    private contactRepository: Repository<Comment>) {
     }
     /**
      *
      */
 
-    async findWithPage(query): Promise<[Attend[], number]> {
+    async findWithPage(query): Promise<[Comment[], number]> {
         const { pageSize, pageNum } = query;
         console.log(pageSize * pageNum - pageSize);
         return await this.contactRepository.findAndCount({
@@ -25,21 +25,21 @@ export class AttendService {
         });
     }
 
-    async findAll(): Promise<Attend[]> {
+    async findAll(): Promise<Comment[]> {
 
         return await this.contactRepository.find();
     }
 
-    async findDetail(id): Promise<Attend> {
+    async findDetail(id): Promise<Comment> {
         return await this.contactRepository.findOne(id)
     }
 
-    async create(attend: Attend): Promise<Attend> {
-        return await this.contactRepository.save(attend);
+    async create(comment: Comment): Promise<Comment> {
+        return await this.contactRepository.save(comment);
     }
 
-    async update(attend: Attend): Promise<UpdateResult> {
-        return await this.contactRepository.update(attend.id, attend);
+    async update(comment: Comment): Promise<UpdateResult> {
+        return await this.contactRepository.update(comment.id, comment);
     }
 
     async delete(id): Promise<DeleteResult> {
