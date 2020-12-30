@@ -13,8 +13,16 @@ export class AuthController {
 
   @Get()
   index(@Query() query): Promise<any> {
-    
+
     return this.authService.auth(query);
+  }
+
+  @Post('invoke')
+  invokeCloudFunction(@Body() request): any{
+    console.log(request)
+    const res = this.authService.invokeCloudFunction(request)
+    console.log(res);
+    return res
   }
 
 }
