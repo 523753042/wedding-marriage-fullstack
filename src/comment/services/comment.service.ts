@@ -19,7 +19,6 @@ export class CommentService {
 
     async findWithPage(query): Promise<[Comment[], number]> {
         const { pageSize, pageNum } = query;
-        console.log(pageSize * pageNum - pageSize);
         return await this.contactRepository.findAndCount({
             skip: pageSize * pageNum - pageSize,
         });

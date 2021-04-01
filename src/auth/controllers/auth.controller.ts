@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Put, Delete, Body, Param, Request, Query } from '@nestjs/common'
+import { Controller, Get, Post, Put, Delete, Body, Param, Request, Query, HttpCode } from '@nestjs/common'
 import { AuthService } from '../services/auth.service';
 
 
@@ -17,12 +17,22 @@ export class AuthController {
     return this.authService.auth(query);
   }
 
-  @Post('invoke')
-  invokeCloudFunction(@Body() request): any{
-    console.log(request)
+  @Post('invokeCloudFunction')
+  @HttpCode(200)
+  invokeCloudFunction(@Body() request): any {
     const res = this.authService.invokeCloudFunction(request)
-    console.log(res);
     return res
   }
 
+  @Get('getAllCommentList')
+  getAllCommentListAndDistinct() {
+    const res = this.authService.getAllCommentList(false)
+    return res
+  }
+
+  @Get('getAttendAll')
+  getAllCommentList() {
+    const res = this.authService.getAttendAll()
+    return res
+  }
 }
