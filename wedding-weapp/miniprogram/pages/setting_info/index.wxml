@@ -1,0 +1,54 @@
+<view class="container {{$style}}" bindtap="$showHeart">
+  <view class="container" wx:if="{{$ready}}">
+    <ui-header title="信息设置"/>
+    <view>
+      <view class="flex-center-wrap row">
+        <view class="label">新郎姓名：</view>
+        <input type="text" class="input shadow" placeholder-class="placeholder" placeholder="请输入新郎姓名" bindinput="setValue" data-name="$groom" value="{{$groom}}"/>
+      </view>
+      <view class="flex-center-wrap row">
+        <view class="label">新娘姓名：</view>
+        <input type="text" class="input shadow" placeholder-class="placeholder" placeholder="请输入新娘姓名" bindinput="setValue" data-name="$bride" value="{{$bride}}"/>
+      </view>
+      <view class="flex-center-wrap row">
+        <view class="label">新郎电话：</view>
+        <input type="text" class="input shadow" placeholder-class="placeholder" placeholder="请输入新郎电话" bindinput="setValue" data-name="$phone1" value="{{$phone1}}"/>
+      </view>
+      <view class="flex-center-wrap row">
+        <view class="label">新娘电话：</view>
+        <input type="text" class="input shadow" placeholder-class="placeholder" placeholder="请输入新娘电话" bindinput="setValue" data-name="$phone2" value="{{$phone2}}"/>
+      </view>
+      <view class="flex-center-wrap row">
+        <view class="label">喜宴日期：</view>
+        <input type="text" class="input shadow" placeholder-class="placeholder" placeholder="喜宴日期（国历）" bindinput="setValue" data-name="$date1" value="{{$date1}}"/>
+        <view class="row-tips">如 2018/02/05</view>
+      </view>
+      <view class="flex-center-wrap row">
+        <view class="label">喜宴日期：</view>
+        <input type="text" class="input shadow" placeholder-class="placeholder" placeholder="喜宴日期（农历）" bindinput="setValue" data-name="$date2" value="{{$date2}}"/>
+        <view class="row-tips">如 正月初一</view>
+      </view>
+      <view class="flex-center-wrap row">
+        <view class="label">喜宴时间：</view>
+        <input type="text" class="input shadow" placeholder-class="placeholder" placeholder="午饭时间" bindinput="setValue" data-name="$time" value="{{$time}}"/>
+        <view class="row-tips">如 12:00</view>
+      </view>
+      <view class="row">
+        <view class="upload border shadow" bindtap="submit">修改信息</view>
+      </view>
+
+      <view class="flex-center-wrap row">
+        <view class="label">背景音乐：</view>
+        <view class="flex show-dots">{{$music.name}}</view>
+        <view class="choice-btn border shadow" bindtap="chooseMusic">选择音乐</view>
+      </view>
+      <view class="row tips center">
+        <view>选择了音乐则会立即更换背景音乐</view>
+        <view>注：由于目前api的限制，所以只能从对话列表中选择音乐，建议下载好音乐后，发送至微信对话当中，然后即可上传该音乐（由于无法控制上传的文件类型，请不要上传非音乐文件）</view>
+      </view>
+      
+    </view>
+    
+  </view>
+  <include src="/template/system.wxml"/>
+</view>

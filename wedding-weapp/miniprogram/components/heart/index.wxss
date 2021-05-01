@@ -1,0 +1,14 @@
+@import "/app.wxss";
+.heart-container{
+  position: relative;
+}
+.heart{
+  height: 40rpx;
+  width: 40rpx;
+  margin: 0 10rpx;
+}
+.double{
+  position: absolute;
+  left: 0;
+  top: 0;
+}

@@ -1,0 +1,18 @@
+<view class="container {{$style}}" bindtap="$showHeart">
+  <view class="container" wx:if="{{$ready}}">
+    <ui-header title="照片设置"/>
+    <view>
+      <view class="photo-wrap flex-multi-row flex-justify-between">
+        <view wx:for="{{$photos}}" class="photo-item border shadow" wx:key="id" bindtap="del" data-item="{{item}}">
+          <image class="photo" src="{{item.url}}" mode="aspectFill"></image>
+        </view>
+        <view class="photo-item" wx:for="{{[1,2,3,4,5]}}" wx:key="*this"></view>
+      </view>
+      <view class="btn border shadow upload" bindtap="upload">上传照片</view>
+      <view class="tips">每次上传图片张数越少越好 以免上传失败</view>
+      <view class="tips mar-b40">点击单张图片可以进行删除</view>
+    </view>
+    
+  </view>
+  <include src="/template/system.wxml"/>
+</view>

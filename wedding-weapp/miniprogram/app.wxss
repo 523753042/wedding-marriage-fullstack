@@ -1,0 +1,150 @@
+@import "/style/default.wxss";
+@import "/style/black-gold.wxss";
+@import "/style/pink.wxss";
+@import "/style/animate.wxss";
+@import "/style/animate-extend.wxss";
+@import '/style/delay.wxss';
+
+page{
+  width: 100vw;
+  min-height: 100vh;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+  font-size: 28rpx;
+}
+.container{
+  min-width: 100vw;
+  min-height: 100vh;
+  box-sizing: border-box;
+  position: relative;
+}
+.auto{
+  margin-right: auto;
+  margin-left: auto;
+}
+.fixed{
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+.max{
+  height: 100%;
+  width: 100%;
+  position: relative;
+  box-sizing: border-box;
+}
+.show-dots {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.input{
+  box-sizing: border-box;
+  padding: 10rpx 20rpx;
+  border: 1px solid #333;
+  border-radius: 60rpx;
+  font-size: 28rpx;
+  height: auto;
+  width: 340rpx;
+}
+.label{
+  font-size: 28rpx;
+}
+.tips{
+  font-size: 20rpx;
+}
+.no-data{
+  font-size: 36rpx;
+  text-align: center;
+  position: absolute;
+  width: 100%;
+  top: 40%;
+}
+/*右下角切换按钮*/
+.toggle-box{
+  position: fixed;
+  right: 20rpx;
+  bottom: 40rpx;
+  padding: 0 20rpx;
+  font-size: 24rpx;
+  line-height: 40rpx;
+  border-radius:40rpx;
+  z-index: 999;
+}
+.empty{
+  height: 40rpx;
+}
+.blur{
+  filter: blur(3rpx);
+}
+.relative{
+  position: relative;
+}
+.overflow{
+  overflow: hidden;
+}
+.mar-b8{
+  margin-bottom: 8rpx;
+}
+.mar-b40{
+  margin-bottom: 40rpx;
+}
+.pad20{
+  padding: 20rpx;
+}
+.pad40{
+  padding: 40rpx;
+}
+.font24{
+  font-size: 24rpx;
+}
+.font28{
+  font-size: 28rpx;
+}
+.font32{
+  font-size: 32rpx;
+}
+.font36{
+  font-size: 36rpx;
+}
+.bold{
+  font-weight: bold;
+}
+.center{
+  text-align: center;
+}
+button{
+  background-color: transparent;
+  margin: 0;
+}
+button::after{
+  border: none;
+}
+.flex{
+  flex: 1;
+}
+.flex-wrap,
+.flex-center-wrap,
+.flex-multi-row{
+  display: flex;
+}
+.flex-center-wrap {
+  align-items: center;
+}
+.flex-justify-between {
+  justify-content: space-between;
+}
+.flex-justify-around {
+  justify-content: space-around;
+}
+.flex-justify-center {
+  justify-content: center;
+}
+.flex-multi-row {
+  flex-wrap: wrap;
+}

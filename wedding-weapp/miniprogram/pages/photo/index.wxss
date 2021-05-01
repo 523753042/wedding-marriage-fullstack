@@ -1,0 +1,28 @@
+.photo-bg{
+  z-index: 0;
+}
+.photo-wrap{
+  padding: 40rpx;
+  z-index: 1;
+}
+.photo-item{
+  height: 120rpx;
+  width: 120rpx;
+  margin: 20rpx;
+  box-sizing: border-box;
+}
+.egg-box{
+  position: relative;
+  z-index: 5;
+}
+.photo-img{
+  height: 100%;
+  width: 100%;
+}
+.egg-photo{
+  z-index: 5;
+  position: absolute;
+}
+.get-info-btn{
+  padding: 0;
+}

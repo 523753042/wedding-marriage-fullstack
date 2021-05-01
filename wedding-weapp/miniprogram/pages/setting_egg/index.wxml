@@ -1,0 +1,20 @@
+<view class="container {{$style}}" bindtap="$showHeart">
+  <view class="container" wx:if="{{$ready}}">
+    <ui-header title="彩蛋排名"/>
+    <scroll-view scroll-y style="height:{{height}}px" bindscrolltolower="scrollToLower">
+      <view class="empty"></view>
+      <view class="no-data" wx:if="{{!list.length}}">暂无找到彩蛋的人</view>
+      <view wx:for="{{list}}" wx:key="_id" class="list-wrap">
+        <view class="list-item border flex-center-wrap">
+          <view class="rank">No {{item.rank}}</view>
+          <image class="avatar" src="{{item.avatarUrl}}"></image>
+          <view class="name show-dots">{{item.nickName}}</view>
+          <view class="flex show-dots">{{item.time}}</view>
+          <view class="money">￥{{item.money / 100}}</view>
+        </view>
+      </view>
+      <view class="empty"></view>
+    </scroll-view>
+  </view>
+  <include src="/template/system.wxml"/>
+</view>

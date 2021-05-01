@@ -1,0 +1,54 @@
+.black-gold{
+  
+}
+.black-gold .color {
+  color: #eccb90;
+}
+.black-gold .border-color{
+  border-color: #eccb90;
+}
+.black-gold button{
+  color: #eccb90;
+}
+.black-gold .bg-color{
+  background-color: #242424;
+}
+.black-gold.bg-color{
+  background-color: #242424;
+}
+.black-gold .border{
+  border: 2rpx solid #eccb90;
+}
+.black-gold .shadow100{
+  box-shadow: 0 0rpx 100rpx 0 #eccb90;
+}
+.black-gold .shadow{
+  box-shadow: 0 0rpx 20rpx 0 #eccb90;
+}
+.black-gold .text-shadow{
+  text-shadow: 0 0rpx 40rpx #eccb90;
+}
+.black-gold.container{
+  color: #eccb90;
+  background-color: #242424;
+}
+/*输入框*/
+.black-gold .label{
+
+}
+.black-gold .input {
+  border-color: #eccb90;
+}
+.black-gold .placeholder{
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 24rpx;
+}
+/*首页*/
+.black-gold .cover{
+  background-color: rgba(0,0,0, 0.5)
+}
+.black-gold .layer-bg{
+  /*background-color: rgba(255, 255, 255, 0.5)*/
+  background-color: rgba(0,0,0, 0.7)
+}
+

@@ -1,0 +1,28 @@
+.row{
+  padding: 20rpx;
+}
+.label{
+  width: 200rpx;
+  text-align: right;
+}
+.row-tips{
+  font-size: 20rpx;
+  margin-left: 20rpx;
+}
+.textarea{
+  padding: 20rpx;
+  width: 400rpx;
+  height: 150rpx;
+  border-radius: 8rpx;
+}
+.submit-btn{
+  width: 500rpx;
+  line-height: 80rpx;
+  border-radius: 80rpx;
+  text-align: center;
+  margin: 60rpx auto;
+}
+.hint{
+  text-align: center;
+  font-size: 24rpx;
+}

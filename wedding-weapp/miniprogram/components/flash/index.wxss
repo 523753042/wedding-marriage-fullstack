@@ -1,0 +1,31 @@
+@import '/app.wxss';
+
+.text{
+  word-spacing: 50rpx;
+  text-align: center;
+  line-height: 1.2;
+  font-weight: bold;
+  letter-spacing: 20rpx;
+  text-indent: 20rpx;
+  display: inline-block;
+}
+.double{
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+.flash-view{
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100vh;
+  width: 100vw;
+}
+.vertical{
+  text-indent: 0rpx;
+  letter-spacing: 0rpx;
+}
+.flash-image{
+  height: 100vh;
+  width: 100vw;
+}

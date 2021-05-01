@@ -1,0 +1,156 @@
+.swiming{
+  animation-name: swiming;
+  animation-duration: 10s;
+  animation-timing-function: linear;
+}
+@keyframes swiming {
+  0% {
+    transform: translate3d(0,0,0);
+  }
+  10%{
+    transform: translate3d(-5%,-10%,0);
+  }
+  25% {
+    transform: translate3d(-10%,-25%,0);
+  }
+  50% {
+    transform: translate3d(0%,-50%,0);
+  }
+  80% {
+    transform: translate3d(20%,-20%,0);
+  }
+  100% {
+    transform: translate3d(0,0,0);
+  }
+}
+.puffIn{
+  animation-name: puffIn;
+}
+@keyframes puffIn{
+  0%{
+    opacity: 0;
+    transform-origin: 50% 50%;
+    transform: scale(2);
+  }
+  100%{
+    opacity: 1;
+    transform-origin: 50% 50%;
+    transform: scale(1);
+  }
+}
+@keyframes halfFadeInDown {
+  from {
+
+    transform: translate3d(0, -50%, 0);
+    opacity: 0;
+  }
+  to {
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+  }
+}
+.halfFadeInDown {
+  animation-name: halfFadeInDown;
+}
+
+.growOut{
+  animation-name: grow-out;
+  /*animation: 1.8s ease 0.1s infinite normal both running grow;  */
+}
+
+@keyframes grow-out {
+  0% {
+    opacity: 1;
+    transform-origin: 50% 50%;
+    transform: scale(1);
+  }
+
+  100% {
+    opacity: 0;
+    transform-origin: 50% 50%;
+    transform: scale(2);
+  }
+}
+.grow-once{
+  animation: 1.2s ease 0.1s 1 normal both running grow-once;
+}
+@keyframes grow-once{
+  0% {
+    opacity: 0.2;
+    transform-origin: 50% 50%;
+    transform: scale(0.2);
+  }
+
+  100% {
+    opacity: 1;
+    transform-origin: 50% 50%;
+    transform: scale(1);
+  }
+}
+
+.sway{
+  animation-name: sway;
+}
+@keyframes sway{
+  20% {
+    transform: rotate(15deg);
+  }
+  40% {
+    transform: rotate(-10deg);
+  }
+  60% {
+    transform: rotate(5deg);
+  }
+  80% {
+    transform: rotate(-5deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+.zoomInDown2 {
+  animation-name: zoomInDown2;
+}
+@keyframes zoomInDown2 {
+  from {
+    opacity: 0;
+    transform: scale3d(0.1, 0.1, 0.1) translate3d(0, 0rpx, 0);
+    animation-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);
+  }
+  40% {
+    opacity: 1;
+    transform: scale3d(0.475, 0.475, 0.475) translate3d(0, 500rpx, 0);
+    animation-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1);
+  }
+}
+.zoomOutUp2 {
+  animation-name: zoomOutUp2;
+}
+@keyframes zoomOutUp2 {
+  40% {
+    opacity: 1;
+    transform: scale3d(0.475, 0.475, 0.475) translate3d(0, 500rpx, 0);
+    animation-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);
+  }
+  to {
+    opacity: 0;
+    transform: scale3d(0.1, 0.1, 0.1) translate3d(0, 0, 0);
+    transform-origin: center top;
+    animation-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1);
+  }
+}
+@keyframes zoomIn2 {
+  from {
+    opacity: 0;
+    transform: scale3d(0.3, 0.3, 0.3);
+  }
+  /* 60% {
+    opacity: 0.4;
+  } */
+  100% {
+    opacity: 1;
+  }
+}
+.zoomIn2 {
+  animation-name: zoomIn2;
+}

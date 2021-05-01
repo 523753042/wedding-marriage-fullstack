@@ -1,0 +1,66 @@
+<view class="container {{$style}}" bindtap="$showHeart">
+  <view wx:if="{{$ready}}">
+    <view class="test" wx:if="{{stage === 0}}">
+      <ui-flash texts="{{$indexFlashTexts}}" photos="{{$photos}}" bindend="flashEnd"></ui-flash>
+      <view class="small-btn border shadow skip-flash" bindtap="flashEnd">直达邀请</view>
+    </view>
+    <view class="container" wx:if="{{stage === 1}}">
+      <view class="small-btn border shadow skip-flash" bindtap="flashStart">再看亿遍</view>
+      <image src="{{$photos[$photos.length - 1].url}}" class="swiper" mode="aspectFill"></image>
+      <view class="cover-container center" bindtouchstart="start" bindtouchmove="move">
+        <view class="letter">
+          <view class="letter-box animated rollIn" bindtap="toggleCover">
+            <image class="letter-img swing animated infinite slow delay-1s" src="/images{{$style ? '/' + $style : '' }}/letter.svg" mode="aspectFit"></image>
+          </view>
+        </view>
+        <view class="cover animated slow {{isShowCover ? 'zoomInDown2' : 'zoomOutUp2'}} {{isFirst ? 'delay-0-7s' : ''}}">
+          <view class="max ele-box overflow">
+            <ui-background type="1" mixed="{{false}}"></ui-background>
+          </view>
+          <view class="max">
+            <view class="border max ele-box animated zoomIn delay-1-7s"></view>
+            <view class="border max ele-box animated zoomIn delay-1-8s"></view>
+            <view class="border max ele-box animated zoomIn delay-1-9s"></view>
+            <view class="border max ele-box animated zoomIn delay-2s"></view>
+            <view class="border max ele-box animated zoomIn delay-2-1s"></view>
+            <view class="max pad40 center font28">
+              <view class="info-box title-box flex-center-wrap flex-justify-around animated fadeInDown delay-2-5s">
+                <image src="/images{{$style ? '/' + $style : ''}}/hun.png" mode="aspectFit" class="hanzi animated infinite bounce slow delay-3-5s"></image>
+                <image src="/images{{$style ? '/' + $style : ''}}/li.png" mode="aspectFit" class="hanzi animated infinite bounce slow delay-3-6s"></image>
+                <image src="/images{{$style ? '/' + $style : ''}}/yao.png" mode="aspectFit" class="hanzi animated infinite bounce slow delay-3-7s"></image>
+                <image src="/images{{$style ? '/' + $style : ''}}/qing.png" mode="aspectFit" class="hanzi animated infinite bounce slow delay-3-8s"></image>
+                <image src="/images{{$style ? '/' + $style : ''}}/han.png" mode="aspectFit" class="hanzi animated infinite bounce slow delay-3-9s"></image>
+              </view>
+              <view class="name-box flex-center-wrap flex-justify-around">
+                <view class="animated fadeInRightBig delay-2-5s bride">{{$groom}}</view>
+                <view class="animated bounceInDown delay-3s">
+                  <ui-heart double></ui-heart>
+                </view>
+                <view class="animated fadeInLeftBig delay-2-5s bride">{{$bride}}</view>
+              </view>
+              <view class="info-box animated zoomIn delay-4s">
+                <view class="mar-b8">喜今日赤绳系定，珠联璧合</view>
+                <view>卜他年白头永偕，桂馥兰馨</view>
+              </view>
+              <view class="info-box">
+                <view class="mar-b8 bold animated delay-4s fadeInUpBig">【 时间 · Time 】</view>
+                <view class="animated zoomIn delay-5s">
+                  {{$date1 + ' ' + $date2 + ' ' + $time}}
+                </view>
+              </view>
+              <view class="info-box">
+                <view class="mar-b8 bold animated delay-5s fadeInUpBig">【 地址 · Address 】</view>
+                <view class="mar-b8 animated zoomIn delay-6s">{{hotel}}</view>
+                <view class="animated zoomIn delay-6-2s">{{$address}}</view>
+              </view>
+              <view class="bold font32 animated fadeInUp delay-7s">
+                <view class="animated heartBeat infinite delay-8s slow">敬备喜酌 · 恭请光临</view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <include src="/template/system.wxml" />
+</view>
