@@ -80,7 +80,13 @@
 
 针对这个问题，建议先屏蔽这个页面通过初版的审核，然后在后续的功能里面，通过后端接口来隐性地控制开关。
 
-明明专门调用了微信的语言过滤检测接口，不会出现那种奇怪的语言。但是微信近年的审核严了起来
+具体可以看miniprogram/pages/comment/index.wxml 25行，
+
+      <view wx:if="{{remarkList.length>45}}">
+
+通过数据库获取remarkList长度来控制是否显示。需要手动去数据库添加database，如下图所示添加数据就行。长度自行控制，如果嫌45太多的话。
+
+<img width="865" alt="image" src="https://user-images.githubusercontent.com/26767055/182059608-f2e692da-7a32-457a-9aca-721aff2860e9.png">
 
 
 ### 彩蛋
