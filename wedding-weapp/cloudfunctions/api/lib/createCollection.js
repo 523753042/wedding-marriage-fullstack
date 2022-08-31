@@ -1,7 +1,7 @@
 const cloud = require('wx-server-sdk')
 const db = cloud.database()
 
-const collections = ['info', 'manager', 'egg', 'comment', 'attend']
+const collections = ['info', 'manager', 'egg', 'comment', 'attend','remark']
 async function createCollection() {
   await Promise.all(
     collections.map(async item => {

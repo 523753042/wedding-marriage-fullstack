@@ -80,7 +80,7 @@ page({
       list = []
     }
     return comment.getList({ pageNum }).then(res => {
-      if (res.length) {
+      if (res&&res.length) {
         this.setData({
           list: list.concat(res),
           pageNum
