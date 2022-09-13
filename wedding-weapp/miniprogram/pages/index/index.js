@@ -1,5 +1,7 @@
 const page = require('../../framework/page.js')
-const { sleep } = require('../../lib/util.js')
+const {
+  sleep
+} = require('../../lib/util.js')
 const Event = require('../../lib/event.js')
 const app = getApp()
 
@@ -15,11 +17,15 @@ page({
     y: 0
   },
   onReady() {
-    const { $ready } = this.data
+    const {
+      $ready
+    } = this.data
     if (!$ready) {
       Event.on(
         'infoChange',
-        ({ $ready }) => {
+        ({
+          $ready
+        }) => {
           if (!$ready) return
           this.startStage()
         },
@@ -28,6 +34,7 @@ page({
     } else {
       this.startStage()
     }
+    wx.login().then(res => console.log('res', res))
   },
   // 开始图片播放
   startStage() {
@@ -48,7 +55,9 @@ page({
 
   },
   flashStart() {
-    const { stage } = this.data
+    const {
+      stage
+    } = this.data
 
     this.setData({
       stage: 0
@@ -57,7 +66,9 @@ page({
   },
   // 一个flash播放结束
   flashEnd() {
-    const { stage } = this.data
+    const {
+      stage
+    } = this.data
 
     this.setData({
       stage: stage + 1
@@ -68,10 +79,14 @@ page({
   // 切换 封面是否显示
   toggleCover({
     currentTarget: {
-      dataset: { type }
+      dataset: {
+        type
+      }
     }
   }) {
-    const { isShowCover } = this.data
+    const {
+      isShowCover
+    } = this.data
     if (type === 'swiper' && !isShowCover) {
       return
     }
@@ -81,18 +96,31 @@ page({
     })
   },
   // 补充滑动切换背景图事件
-  start({ changedTouches }) {
+  start({
+    changedTouches
+  }) {
     if (!changedTouches[0]) return
-    const { clientY } = changedTouches[0]
+    const {
+      clientY
+    } = changedTouches[0]
     this.setData({
       isMoving: true,
       y: clientY
     })
   },
-  move({ changedTouches }) {
+  move({
+    changedTouches
+  }) {
     if (!changedTouches[0]) return
-    const { clientY } = changedTouches[0]
-    const { y, isMoving, current, $indexBanners } = this.data
+    const {
+      clientY
+    } = changedTouches[0]
+    const {
+      y,
+      isMoving,
+      current,
+      $indexBanners
+    } = this.data
     const len = $indexBanners.length
 
     if (!isMoving) {
@@ -112,14 +140,18 @@ page({
     }
   },
   onShareAppMessage() {
-    const { info } = app.globalData
+    const {
+      info
+    } = app.globalData
     return {
       title: `邀请您于${info.$date1} ${info.$date2}参加${info.$groom}与${info.$bride}的结婚典礼。`,
       // path: '/index/index'
     }
   },
   onShareTimeline(res) {
-    const { info } = app.globalData
+    const {
+      info
+    } = app.globalData
     return {
       title: `邀请您于${info.$date1} ${info.$date2}参加${info.$groom}与${info.$bride}的结婚典礼。`,
       path: '/index/index'

@@ -12,9 +12,10 @@ export class AuthController {
   }
 
   @Get()
-  index(@Query() query): Promise<any> {
-
-    return this.authService.auth(query);
+  async index(@Query() query): Promise<any> {
+    const res = await this.authService.auth(query);
+    console.log('res', res);
+    return res
   }
 
   @Post('invokeCloudFunction')

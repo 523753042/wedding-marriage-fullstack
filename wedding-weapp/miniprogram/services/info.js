@@ -1,7 +1,17 @@
-const { api } = require('./request.js')
+const {
+  api,
+  request
+} = require('./request.js')
 
 // 获取小程序所需配置信息
-const get = () => api('info/get')
+const get = () => {
+  request('GET', 'info/getinfo')
+    .then(res => console.log('res', res))
+    .catch(err=>console.log('err',err))
+    
+
+  return api('info/get')
+}
 
 // 修改小程序信息
 const setInfo = params => {

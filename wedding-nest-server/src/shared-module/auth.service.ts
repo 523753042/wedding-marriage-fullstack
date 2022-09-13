@@ -5,7 +5,7 @@ import { of, scheduled } from 'rxjs';
 import { tap, distinct, map } from 'rxjs/operators'
 import { Repository } from 'typeorm';
 import { UpdateResult, DeleteResult } from 'typeorm';
-import { config } from '../../weapp-screct-key';
+import { config } from './../weapp-screct-key';
 @Injectable()
 export class AuthService {
 
@@ -17,7 +17,6 @@ export class AuthService {
         this.screctKey = config.secret;
         this.ENV = config.ENV
     }
-
     private appid
     private screctKey
     private ENV

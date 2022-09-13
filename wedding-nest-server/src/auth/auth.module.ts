@@ -4,9 +4,9 @@ import { AuthController } from './controllers/auth.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
-  imports: [HttpModule
-  ],
+  imports: [HttpModule],
+  exports: [AuthService],
   providers: [AuthService],
   controllers: [AuthController]
 })
-export class AuthModule {}
+export class AuthModule { }

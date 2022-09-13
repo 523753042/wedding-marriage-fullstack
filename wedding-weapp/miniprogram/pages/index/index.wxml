@@ -55,6 +55,7 @@
               </view>
               <view class="bold font32 animated fadeInUp delay-7s">
                 <view class="animated heartBeat infinite delay-8s slow">敬备喜酌 · 恭请光临</view>
+                <view class="animated heartBeat infinite delay-8s slow">{{info}}</view>
               </view>
             </view>
           </view>
