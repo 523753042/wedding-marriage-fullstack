@@ -21,7 +21,7 @@ export class UploadService {
     }
 
     async getFileById(fileId: number) {
-        const file = await this.uploadRepository.findOne(fileId);
+        const file = await this.uploadRepository.findOneBy({ id: fileId });
         if (!file) {
             throw new NotFoundException();
         }

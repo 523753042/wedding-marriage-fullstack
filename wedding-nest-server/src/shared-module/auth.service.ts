@@ -1,4 +1,5 @@
-import { Injectable, HttpModule, HttpService } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
+import { HttpService } from '@nestjs/axios';
 import { InjectRepository } from '@nestjs/typeorm';
 import { url } from 'inspector';
 import { of, scheduled } from 'rxjs';

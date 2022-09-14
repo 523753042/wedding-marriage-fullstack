@@ -12,7 +12,7 @@ export class InfoService {
     }
 
     async getInfo() {
-        return this.infoRepository.findOne();
+        return this.infoRepository.findOne({});
     }
     async add(data) {
         return this.infoRepository.create(data);

@@ -1,4 +1,4 @@
-import { Injectable, HttpModule, HttpService } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { url } from 'inspector';
 import { of, scheduled } from 'rxjs';
@@ -6,6 +6,7 @@ import { tap, distinct, map } from 'rxjs/operators'
 import { Repository } from 'typeorm';
 import { UpdateResult, DeleteResult } from 'typeorm';
 import { config } from '../../weapp-screct-key';
+import { HttpService } from '@nestjs/axios';
 @Injectable()
 export class AuthService {
 
