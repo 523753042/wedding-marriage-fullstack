@@ -1,11 +1,3 @@
-/*
- * @Description: 
- * @Version: 1.0
- * @Autor: 王兴欣
- * @Date: 2020-03-27 20:58:11
- * @LastEditors: 王兴欣
- * @LastEditTime: 2020-04-10 10:01:17
- */
 const lexicon = require("./lexicon.js")
 async function robot({ comment }) {
   

@@ -22,8 +22,12 @@ export class AuthService {
     private screctKey
     private ENV
 
-    async auth(query): Promise<any> {
-        const { code } = query;
+    /**
+     * 
+     * @param query 拿用户的code去换openid
+     * @returns 
+     */
+    async auth(code): Promise<any> {
         const authUrl = `https://api.weixin.qq.com/sns/jscode2session?appid=${this.appid}&secret=${this.screctKey}&js_code=${code}&grant_type=authorization_code`;
         const res = await this.http.get(authUrl).toPromise();
         return res.data

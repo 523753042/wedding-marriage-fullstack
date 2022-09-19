@@ -7,12 +7,21 @@ export class TransformInterceptor implements NestInterceptor {
     intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
         return next.handle().pipe(
             map(data => {
+                // data可能的数据格式
+                // 1.直接是数据
+                // 2.包了一层有data和code的对象{data:xx,code}
+                // 所以要兼容处理一下
+                if (!data.data) {
+                    return { data }
+                }
+                return data
+
+            }),
+            map(data => {
                 return {
-                    result: {
-                        code: 0,
-                        data,
-                        msg: 'success!'
-                    },
+                    code: 0,
+                    ...data,
+                    msg: 'success!',
                     timestamp: new Date().valueOf()
                 };
             }),

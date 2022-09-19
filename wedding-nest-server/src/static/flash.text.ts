@@ -17,7 +17,7 @@
 *   live:  1                 存活时间
 * }
 */
-const texts = [
+export const FlashTextList = [
   {
     url: 0,
     inName: 'halfFadeInDown',
@@ -246,4 +246,3 @@ function fillFlashOptions(list) {
     }
   })
 }
-module.exports = fillFlashOptions(texts)

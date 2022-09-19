@@ -1,8 +1,8 @@
 import { ManagerService } from './../shared-module/manager.service';
 import { InfoService } from './info.service';
-import { Controller, Get, Param } from '@nestjs/common';
+import { Controller, Get, HttpException, HttpStatus, Param } from '@nestjs/common';
 import { Info } from './info.entity';
-import { MARRIAGEINFO } from 'src/static/marriage.info';
+import { MARRIAGEINFO, FlashTextList } from 'src/static';
 
 @Controller('info')
 export class InfoController {
@@ -11,7 +11,6 @@ export class InfoController {
         private infoService: InfoService,
         private managerService: ManagerService,
     ) {
-
     }
 
     @Get('getinfo')
@@ -19,7 +18,6 @@ export class InfoController {
         // 没有管理员代表第一次进入
 
         const num = await this.managerService.getCount()
-        console.log('num', num);
 
         // 没有管理员代表第一次进入
         if (!num) {
@@ -32,6 +30,7 @@ export class InfoController {
         if (res) {
             res.photos = JSON.parse(res.photos);
             res.music = JSON.parse(res.music);
+            res['indexFlashTexts'] = FlashTextList;
             const obj: any = {}
             for (let key in res) {
                 obj['$' + key] = res[key]

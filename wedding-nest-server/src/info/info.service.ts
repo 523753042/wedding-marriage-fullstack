@@ -12,7 +12,8 @@ export class InfoService {
     }
 
     async getInfo() {
-        return this.infoRepository.findOne({});
+        return this.infoRepository.findOne({ where: { _id: null } });
+        // return this.infoRepository.find();
     }
     async add(data) {
         return this.infoRepository.create(data);

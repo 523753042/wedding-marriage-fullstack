@@ -1,13 +1,3 @@
-/*
- * @Description: 
- * @Version: 1.0
- * @Autor: 王兴欣
- * @Date: 2020-04-10 09:31:20
- * @LastEditors: 王兴欣
- * @LastEditTime: 2020-04-10 10:00:52
- */
-
-
  module.exports = {
    // 彩蛋提示关键字  评论中带了xxx字 就会有几率提示寻找彩蛋方式
    keyword: /私房钱/g,

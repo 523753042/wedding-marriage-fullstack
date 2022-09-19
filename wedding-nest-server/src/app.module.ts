@@ -9,6 +9,7 @@ import { CommentModule } from './comment/comment.module';
 import { InfoModule } from './info/info.module';
 import { SharedModule } from './shared-module/shared.module';
 import { UploadModule } from './upload/upload.module';
+import { EggModule } from './egg/egg.module';
 
 @Module({
   imports: [ContactsModule, AttendModule, AuthModule, CommentModule,InfoModule,
@@ -20,6 +21,7 @@ import { UploadModule } from './upload/upload.module';
     }),
     SharedModule,
     UploadModule,
+    EggModule,
   ],
   controllers: [AppController],
   providers: [AppService],

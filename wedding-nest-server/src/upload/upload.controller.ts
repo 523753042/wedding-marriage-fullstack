@@ -12,14 +12,11 @@ export class UploadController {
     @UseInterceptors(FileInterceptor('file'))
     async upload(@UploadedFile() file, @Body() body) {
         // return this.uploadService.uploadDatabaseFile(fil)
-        console.log('file', file);
-        console.log('body', body);
         return this.uploadService.uploadDatabaseFile(file.buffer, file.originalname)
     }
 
     @Get(':id/readimage')
     async getDatabaseFileById(@Param('id', ParseIntPipe) id: number, @Res() response: Response) {
-        console.log('11', id);
 
         const file = await this.uploadService.getFileById(id);
 

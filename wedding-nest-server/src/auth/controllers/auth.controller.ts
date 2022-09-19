@@ -13,7 +13,7 @@ export class AuthController {
 
   @Get()
   async index(@Query() query): Promise<any> {
-    const res = await this.authService.auth(query);
+    const res = await this.authService.auth(query.code);
     console.log('res', res);
     return res
   }
