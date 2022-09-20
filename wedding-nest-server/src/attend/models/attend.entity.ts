@@ -5,6 +5,11 @@ export class Attend {
     @PrimaryGeneratedColumn()
     id: number;
 
+    @Column({
+        nullable: true
+    })
+    _id: string;
+    
     @Column()
     attendInfo: string;
 

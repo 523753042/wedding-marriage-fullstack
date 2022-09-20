@@ -5,12 +5,8 @@ const {
 
 // 获取小程序所需配置信息
 const get = () => {
-  request('GET', 'info/getinfo')
-    .then(res => console.log('res', res))
-    .catch(err=>console.log('err',err))
-    
-
-  return api('info/get')
+ return request('GET', 'info/getinfo')
+  // return api('info/get')
 }
 
 // 修改小程序信息

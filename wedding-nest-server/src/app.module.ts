@@ -1,6 +1,5 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { ContactsModule } from './contacts/contacts.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AttendModule } from './attend/attend.module';
@@ -10,6 +9,7 @@ import { InfoModule } from './info/info.module';
 import { SharedModule } from './shared-module/shared.module';
 import { UploadModule } from './upload/upload.module';
 import { EggModule } from './egg/egg.module';
+import { RemarkModule } from './remark/remark.module';
 
 @Module({
   imports: [ContactsModule, AttendModule, AuthModule, CommentModule,InfoModule,
@@ -22,8 +22,8 @@ import { EggModule } from './egg/egg.module';
     SharedModule,
     UploadModule,
     EggModule,
+    RemarkModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
 })
 export class AppModule { }

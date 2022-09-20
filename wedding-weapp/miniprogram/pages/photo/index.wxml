@@ -1,16 +1,12 @@
 <view class="container {{$style}}" bindtap="$showHeart">
   <view class="container" wx:if="{{$ready}}">
-    <swiper 
-      class="container"
-      circular
-      autoplay
-      hidden="{{mode !== 'swiper' || !photos.length}}">
+    <swiper class="container" circular autoplay hidden="{{mode !== 'swiper' || !photos.length}}">
       <swiper-item wx:for="{{photos}}" wx:key="id">
         <image src="{{item.url}}" class="photo-img" mode="aspectFill"></image>
       </swiper-item>
     </swiper>
     <view hidden="{{mode !== 'scale' || !photos.length}}">
-      
+
       <view class="fixed">
         <ui-background type="{{2}}" mixed />
       </view>
@@ -37,6 +33,6 @@
       查看{{mode === 'swiper' ? '缩略图' : '轮播图'}}
     </view>
   </view>
-  
-  <include src="/template/system.wxml"/>
+
+  <include src="/template/system.wxml" />
 </view>

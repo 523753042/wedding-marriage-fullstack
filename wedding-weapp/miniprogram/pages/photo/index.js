@@ -89,8 +89,10 @@ fail() {}
       }else {
         len = $photos.length
       }
+      const t = Math.floor(len * Math.random());
+      console.log('t',t);
       this.setData({
-        number: Math.floor(len * Math.random())
+        number:t
       })
     }, 100)
   },
@@ -106,16 +108,25 @@ fail() {}
     })
   },
   getUserInfo({ detail: { userInfo } }) {
+    console.log('detail',userInfo);
     if (!userInfo) {
       // 没有授权
       this.$hint('你发现了新郎的私房钱 赶紧授权领奖励啦！')
       return
     }
-    app.globalData.userInfo = userInfo
-    this.setData({
-      userInfo
+    wx.login().then(res=>{
+      console.log('res',res);
+      userInfo.code=res.code;
+      app.globalData.userInfo = userInfo
+      this.setData({
+        userInfo
+      })
+      this.moneyAction()
     })
-    this.moneyAction()
+  },
+  bindGetUserInfo(e) {
+    console.log('e',e);
+   
   },
   moneyAction() {
     this.$go('/pages/egg/index')

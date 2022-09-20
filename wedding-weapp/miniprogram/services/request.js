@@ -21,7 +21,7 @@ const api = (url, data = {}) => {
     .catch(err => {
       map[url] = false
       wx.hideLoading({
-        fail() {}
+        fail() { }
       })
       hint((err && err.errorMessage) || '网络错误啦 QoQ!')
       return Promise.reject(err)
@@ -31,9 +31,8 @@ const api = (url, data = {}) => {
     }) => {
       map[url] = false
       wx.hideLoading({
-        fail() {}
+        fail() { }
       })
-
       const {
         code,
         data,
@@ -53,7 +52,7 @@ const api = (url, data = {}) => {
 
 const request = (method, url, data = {}) => {
   return new Promise((resolve, reject) => {
-    const baseUrl = 'https://www.xtybusiness.cn/';
+    const baseUrl = 'https://www.xtybusiness.cn/api/';
     if (map[url]) {
       wx.showLoading({
         title: '不要着急嘛...'
@@ -66,17 +65,35 @@ const request = (method, url, data = {}) => {
       method,
       url: baseUrl + url,
       data,
-      success: (data) => {
+      success: (res) => {
         map[url] = false;
-        return resolve(data)
+        console.log('data', res);
+        const { statusCode } = res;
+        const {
+          data,
+          msg,
+          code
+        } = res.data;
+        // 0、成功 1、失败 2、成功但是要显示msg
+        if (statusCode !== 200 && statusCode !== 201) {
+          reject(JSON.stringify(res.data))
+        }
+        if (code > 0) {
+          hint(msg)
+        }
+        if (code === 1) {
+          reject(msg)
+        } else {
+          resolve(data)
+        }
       },
       fail: (err) => {
         map[url] = false
         wx.hideLoading({
-          fail() {}
+          fail() { }
         })
         hint((err && err.errorMessage) || '网络错误啦 QoQ!')
-        return reject(err)
+        reject(err)
       },
     })
   })

@@ -1,15 +1,22 @@
-const { api } = require('./request.js')
-const { dateFormat } = require('../lib/util.js')
+const {
+  api,
+  request
+} = require('./request.js')
+const {
+  dateFormat
+} = require('../lib/util.js')
 
 function parseComment(data) {
-  const { time } = data
+  const {
+    time
+  } = data
   data.time = dateFormat(time, 'mm.dd HH:MM')
   return data
 }
 
-const clue = data => api('egg/clue', data)
+const clue = data => request('POST', 'egg/clue', data)
 
-const getList = data => api('egg/getList', data).then(res => {
+const getList = data => request('GET', 'egg/getList', data).then(res => {
   return res.map(parseComment)
 })
 

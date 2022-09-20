@@ -5,6 +5,11 @@ export class Comment {
     @PrimaryGeneratedColumn()
     id: number;
 
+    @Column({
+        nullable: true
+    })
+    _id: string;
+
     @Column()
     avatarUrl: string;
 

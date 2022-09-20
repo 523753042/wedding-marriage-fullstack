@@ -1,16 +1,10 @@
 import { Entity, Column, PrimaryColumn, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
-export class Manager {
+export class Remark {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column({
-        nullable: true
-    })
-    _id: string;
-    
     @Column()
-    OPENID: string;
-
+    remark: string;
 }

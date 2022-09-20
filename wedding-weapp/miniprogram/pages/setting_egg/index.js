@@ -27,18 +27,20 @@ page({
     const { pageSize, list } = this.data
     this.$showLoading('数据获取中...')
     return getList({ pageNum, pageSize }).then(res => {
+      console.log('res', res);
       wx.hideLoading({
-fail() {}
-})
-      if (res.length) {
+        fail() { }
+      })
+      if (res.length || res.length > -1) {
         this.setData({
           pageNum,
           $pageReady: true,
           list: list.concat(res)
         })
-      }else {
+      } else {
         this.$hint('没有更多啦')
       }
+      console.log('');
     })
   }
 })
