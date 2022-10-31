@@ -1,13 +1,9 @@
 import { Module } from '@nestjs/common';
-import { AuthService } from './services/auth.service';
-import { AuthController } from './controllers/auth.controller';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { HttpModule } from '@nestjs/axios';
+import { AuthController } from './auth.controller';
+import { SharedModule } from 'src/shared-module/shared.module';
 
 @Module({
-  imports: [HttpModule],
-  exports: [AuthService],
-  providers: [AuthService],
+  imports: [SharedModule],
   controllers: [AuthController]
 })
 export class AuthModule { }

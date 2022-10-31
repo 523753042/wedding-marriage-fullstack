@@ -5,11 +5,6 @@ export class Comment {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column({
-        nullable: true
-    })
-    _id: string;
-
     @Column()
     avatarUrl: string;
 
@@ -35,11 +30,13 @@ export class Comment {
     province: string;
 
     @Column()
-    time: string;
+    time: number;
 
-    @Column()
+    @Column({
+        nullable: true
+    })
     _openid: string;
 
     @Column()
-    isDel: string;
+    isDel: boolean;
 }

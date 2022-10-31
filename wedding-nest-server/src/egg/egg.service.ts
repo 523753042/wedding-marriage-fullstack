@@ -19,7 +19,6 @@ export class EggService {
 
     async getListByPage({ pageSize = 20, pageNum }) {
         const res = await this.eggRepository.count()
-        console.log('res', res);
 
         return this.eggRepository.find({
             skip: pageSize * pageNum - pageSize,

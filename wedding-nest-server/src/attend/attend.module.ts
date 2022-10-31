@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
-import { AttendService } from './services/attend.service';
-import { AttendController } from './controllers/attend.controller';
+import { AttendService } from './attend.service';
+import { AttendController } from './attend.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Attend } from './models/attend.entity';
+import { Attend } from './attend.entity';
 
 @Module({
   imports: [

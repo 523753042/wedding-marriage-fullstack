@@ -1,5 +1,5 @@
 import { Controller, Get, Post, Put, Delete, Body, Param, Request, Query, HttpCode } from '@nestjs/common'
-import { AuthService } from '../services/auth.service';
+import { AuthService } from '../shared-module/auth.service';
 
 
 @Controller('auth')
@@ -14,7 +14,6 @@ export class AuthController {
   @Get()
   async index(@Query() query): Promise<any> {
     const res = await this.authService.auth(query.code);
-    console.log('res', res);
     return res
   }
 

@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Attend } from '../models/attend.entity';
+import { Attend } from './attend.entity';
 import { UpdateResult, DeleteResult } from 'typeorm';
 
 @Injectable()
@@ -26,12 +26,11 @@ export class AttendService {
     }
 
     async findAll(): Promise<Attend[]> {
-
         return await this.contactRepository.find();
     }
 
-    async findDetail(id): Promise<Attend> {
-        return await this.contactRepository.findOne(id)
+    async findDetail(openid): Promise<Attend> {
+        return await this.contactRepository.findOne({ where: { _id: openid } })
     }
 
     async create(attend: Attend): Promise<Attend> {
@@ -39,6 +38,8 @@ export class AttendService {
     }
 
     async update(attend: Attend): Promise<UpdateResult> {
+        console.log();
+        
         return await this.contactRepository.update(attend.id, attend);
     }
 

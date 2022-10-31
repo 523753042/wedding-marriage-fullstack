@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Comment } from '../models/comment.entity';
+import { Comment } from './comment.entity';
 import { UpdateResult, DeleteResult } from 'typeorm';
 
 @Injectable()
@@ -17,17 +17,34 @@ export class CommentService {
      *
      */
 
-    async findWithPage(query): Promise<[Comment[], number]> {
-        const { pageSize, pageNum } = query;
-        console.log(pageSize * pageNum - pageSize);
-        return await this.contactRepository.findAndCount({
+    async findWithPage(query): Promise<Comment[]> {
+        const { pageSize = 10, pageNum, isDel } = query;
+        return await this.contactRepository.find({
             skip: pageSize * pageNum - pageSize,
+            where: { isDel },
+            order: { time: 'DESC' },
+            take: pageSize
         });
     }
 
     async findAll(): Promise<Comment[]> {
+        return await this.contactRepository.find({
+            order: { time: 'DESC' },
+        });
+    }
 
-        return await this.contactRepository.find();
+    async findUnDeletedAll(): Promise<Comment[]> {
+        return await this.contactRepository.find({
+            order: { time: 'DESC' },
+            where: { isDel: false },
+        });
+    }
+
+    async findDeletedAll(): Promise<Comment[]> {
+        return await this.contactRepository.find({
+            order: { time: 'DESC' },
+            where: { isDel: true },
+        });
     }
 
     async findDetail(id): Promise<Comment> {
@@ -38,7 +55,7 @@ export class CommentService {
         return await this.contactRepository.save(comment);
     }
 
-    async update(comment: Comment): Promise<UpdateResult> {
+    async update(comment: Partial<Comment>): Promise<UpdateResult> {
         return await this.contactRepository.update(comment.id, comment);
     }
 
@@ -46,5 +63,5 @@ export class CommentService {
         return await this.contactRepository.delete(id);
     }
 
-    
+
 }

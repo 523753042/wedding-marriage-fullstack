@@ -1,14 +1,18 @@
 import { Module } from '@nestjs/common';
-import { CommentService } from './services/comment.service';
-import { CommentController } from './controllers/comment.controller';
+import { CommentService } from './comment.service';
+import { CommentController } from './comment.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Comment } from './models/comment.entity';
+import { Comment } from './comment.entity';
+import { RemarkService } from './remark.service';
+import { Remark } from './remark.entity';
+import { SharedModule } from 'src/shared-module/shared.module';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([Comment]),
+    SharedModule,
+    TypeOrmModule.forFeature([Comment, Remark]),
   ],
-  providers: [CommentService],
+  providers: [CommentService, RemarkService],
   controllers: [CommentController]
 })
-export class CommentModule {}
+export class CommentModule { }

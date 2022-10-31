@@ -1,6 +1,6 @@
 import { ManagerService } from './../shared-module/manager.service';
 import { InfoService } from './info.service';
-import { Controller, Get, HttpException, HttpStatus, Param } from '@nestjs/common';
+import { Controller, Get, HttpException, HttpStatus, Param, Query } from '@nestjs/common';
 import { Info } from './info.entity';
 import { MARRIAGEINFO, FlashTextList } from 'src/static';
 
@@ -14,17 +14,17 @@ export class InfoController {
     }
 
     @Get('getinfo')
-    async getInfo(@Param('openid') id: string): Promise<Info> {
+    async getInfo(@Query('openid') openid: string): Promise<Info> {
         // 没有管理员代表第一次进入
 
         const num = await this.managerService.getCount()
 
         // 没有管理员代表第一次进入
         if (!num) {
-            await Promise.all([this.managerService.add(id), this.infoService.add(MARRIAGEINFO)])
+            await Promise.all([this.managerService.add(openid), this.infoService.add(MARRIAGEINFO)])
         }
         if (num === 1) {
-            await this.managerService.add(id)
+            await this.managerService.add(openid)
         }
         const res = await this.infoService.getInfo()
         if (res) {

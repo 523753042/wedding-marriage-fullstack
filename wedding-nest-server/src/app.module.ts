@@ -9,7 +9,6 @@ import { InfoModule } from './info/info.module';
 import { SharedModule } from './shared-module/shared.module';
 import { UploadModule } from './upload/upload.module';
 import { EggModule } from './egg/egg.module';
-import { RemarkModule } from './remark/remark.module';
 
 @Module({
   imports: [ContactsModule, AttendModule, AuthModule, CommentModule,InfoModule,
@@ -22,7 +21,6 @@ import { RemarkModule } from './remark/remark.module';
     SharedModule,
     UploadModule,
     EggModule,
-    RemarkModule,
   ],
   controllers: [AppController],
 })

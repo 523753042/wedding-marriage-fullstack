@@ -14,8 +14,7 @@ export class EggController {
 
     @Post('clue')
     async club(@Body() body) {
-        const { code } = body;
-        const { openid } = await this.authService.auth(code);
+        const { openid } = body;
         console.log('openid', openid);
         if (!openid) {
             return { code: 1, msg: '缺少用户身份标志' }
