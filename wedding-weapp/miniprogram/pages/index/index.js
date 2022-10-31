@@ -34,7 +34,6 @@ page({
     } else {
       this.startStage()
     }
-    wx.login().then(res => console.log('res', res))
   },
   // 开始图片播放
   startStage() {

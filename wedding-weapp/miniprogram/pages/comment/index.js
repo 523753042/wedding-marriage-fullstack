@@ -34,7 +34,7 @@ page({
     remark: '',
     attendArr: ['一人出席', '两人出席', '三人出席', '三人以上'],
     index: 0,
-    _id: null
+    id: null
   },
   onLoad() {
     console.log('load')
@@ -74,19 +74,19 @@ page({
     })
   },
   // 获取祝福信息
-  getComment(pageNum) {
+  async getComment(pageNum) {
     let { list } = this.data
     if (pageNum === 1) {
       list = []
     }
-    return comment.getList({ pageNum }).then(res => {
-      if (res&&res.length) {
-        this.setData({
-          list: list.concat(res),
-          pageNum
-        })
-      }
-    })
+    const res = await comment.getList({ pageNum })
+    this.$hideLoading();
+    if (res && res.length) {
+      this.setData({
+        list: list.concat(res),
+        pageNum
+      })
+    }
   },
   randValue() {
     this.setData({
@@ -143,30 +143,34 @@ page({
       this.$hint(msg)
       return
     }
+    app.globalData.userInfo = userInfo
     this.setData({
       userInfo
     })
-    app.globalData.userInfo = userInfo
     fn()
   },
   // 提交祝福
   submit() {
     const { userInfo, value, list } = this.data
+    const { openid } = app.globalData;
+    console.log('userInfo', userInfo);
     if (!this.validate()) return
     wx.showLoading({
       title: '祝福提交中...'
     })
-    comment.add(Object.assign({}, userInfo, { comment: value })).then(data => {
+    comment.add(Object.assign({ openid }, userInfo, { comment: value })).then(data => {
       list.unshift(data)
       this.setData({
         list,
         isLayerShow: false
       })
     })
+
   },
   // 提交出席信息
   submitAttend() {
-    const { name, mobile, index, remark, userInfo, _id } = this.data
+    const { name, mobile, index, remark, userInfo, id } = this.data
+    const { openid } = app.globalData
     if (!name) {
       return this.$hint('请输入姓名')
     }
@@ -181,17 +185,20 @@ page({
     }
     let service,
       params = { attendInfo }
-    if (!_id) {
+    if (!id) {
       service = attend.add
       params = {
+        _id: openid,
         userInfo,
         attendInfo
       }
     } else {
       service = attend.update
       params = {
-        id: _id,
-        data: attendInfo
+        _id: openid,
+        userInfo,
+        id,
+        attendInfo: attendInfo
       }
     }
     service(params).then(() => {
@@ -199,25 +206,25 @@ page({
     })
   },
   getAttendInfo() {
+    const { userInfo } = this.data
+    const { openid } = app.globalData;
     wx.showLoading({
       title: '信息加载中...'
     })
-    attend
-      .get()
+    attend.get({ openid })
       .then(res => {
         if (!res) {
-          const { userInfo } = this.data
           this.setData({
             name: userInfo.nickName,
             remark: this.getRandRemark()
           })
           return
         }
-        const { attendInfo, _id } = res
+        const { attendInfo, id } = res
         const { attendNum, mobile, name, remark } = attendInfo
         this.setData({
           index: attendNum - 1,
-          _id,
+          id,
           mobile,
           name,
           remark: this.getRandRemark()

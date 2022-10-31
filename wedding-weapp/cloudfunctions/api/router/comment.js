@@ -28,7 +28,7 @@ const add = async data => {
   }
   const { OPENID } = cloud.getWXContext()
   data.time = Date.now()
-  data._openid = OPENID
+  data._openid = OPENID;
   await service.add(data)
   // 对于某些言论 进行回复 （界面以弹窗形式展示）
   const { code, msg } = await robot(data)

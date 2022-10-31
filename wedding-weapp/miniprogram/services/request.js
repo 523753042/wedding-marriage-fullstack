@@ -21,7 +21,7 @@ const api = (url, data = {}) => {
     .catch(err => {
       map[url] = false
       wx.hideLoading({
-        fail() { }
+        fail() {}
       })
       hint((err && err.errorMessage) || '网络错误啦 QoQ!')
       return Promise.reject(err)
@@ -31,7 +31,7 @@ const api = (url, data = {}) => {
     }) => {
       map[url] = false
       wx.hideLoading({
-        fail() { }
+        fail() {}
       })
       const {
         code,
@@ -67,14 +67,24 @@ const request = (method, url, data = {}) => {
       data,
       success: (res) => {
         map[url] = false;
-        console.log('data', res);
-        const { statusCode } = res;
+        wx.hideLoading({
+          fail() {}
+        })
         const {
+          statusCode
+        } = res;
+        const {
+          code,
           data,
           msg,
-          code
         } = res.data;
-        // 0、成功 1、失败 2、成功但是要显示msg
+        // 0、成功 
+        // 1、失败 
+        // 2、成功但是要显示msg
+        if (statusCode === 500) {
+          reject(JSON.stringify(res.data.message));
+          hint((JSON.stringify(res.data.message)) || '网络错误啦 QoQ!')
+        }
         if (statusCode !== 200 && statusCode !== 201) {
           reject(JSON.stringify(res.data))
         }
@@ -88,9 +98,10 @@ const request = (method, url, data = {}) => {
         }
       },
       fail: (err) => {
-        map[url] = false
+        console.log('err', err);
+        map[url] = false;
         wx.hideLoading({
-          fail() { }
+          fail() {}
         })
         hint((err && err.errorMessage) || '网络错误啦 QoQ!')
         reject(err)

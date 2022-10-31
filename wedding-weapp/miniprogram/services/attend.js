@@ -1,12 +1,12 @@
-const { api } = require('./request.js')
+const { api, request } = require('./request.js')
 
-const add = data => api('attend/add', data)
+const add = data => request('POST', 'attend/add', data)
 
-const get = () => api('attend/get')
+const get = (params) => request('GET', 'attend/get', params)
 
-const getAll = () => api('attend/getAll')
+const getAll = () => request('GET', 'attend/getAll')
 
-const update = params => api('attend/update', params)
+const update = data => request('POST', 'attend/update', data)
 
 module.exports = {
   add,

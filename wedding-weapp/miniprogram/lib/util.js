@@ -47,7 +47,7 @@ function dateFormat(value, format) {
     return val
   }
 
-  value = new Date(value)
+  value = new Date(+value)
 
   return format.replace(dateToken, function(match) {
     const callback = dateFlag[match]

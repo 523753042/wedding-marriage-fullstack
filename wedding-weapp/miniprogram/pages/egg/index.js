@@ -36,8 +36,10 @@ page({
     })
   },
   onReady() {
+    const { openid } = app.globalData
+
     Promise.all([
-      egg.clue(this.data.userInfo),
+      egg.clue(Object.assign({ openid }, this.data.userInfo)),
       getImageInfo(this.data.userInfo.avatarUrl),
       getSystemInfo()
     ]).then(res => {

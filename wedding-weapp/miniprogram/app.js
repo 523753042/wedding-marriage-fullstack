@@ -1,10 +1,9 @@
 const Event = require('./lib/event.js')
 const { getInfo } = require('./lib/global.js')
 const setTabBar = require('./lib/setTabBar.js')
-
 //app.js
 App({
-  onLaunch: function() {
+  onLaunch: function () {
     if (!wx.cloud) {
       console.error('请使用 2.2.3 或以上的基础库以使用云能力')
     } else {
@@ -42,7 +41,7 @@ App({
       Object.assign(this.globalData.state, data)
       if (data.isMusicPlay) {
         audio.play()
-      }else {
+      } else {
         audio.pause()
       }
     })
@@ -63,8 +62,14 @@ App({
         }, 100)
       }
     })
+    Event.on('openidChange', openid => {
+      // info.$style && setTabBar(info.$style)
+      Object.assign(this.globalData, { openid })
+    })
     // 获取全局配置信息
-    getInfo(this)
+    wx.login().then(res => {
+      getInfo(this, res.code)
+    })
   },
   onHide() {
     const { isUserAction, audio } = this.globalData

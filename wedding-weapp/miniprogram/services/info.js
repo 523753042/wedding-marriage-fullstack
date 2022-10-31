@@ -4,8 +4,8 @@ const {
 } = require('./request.js')
 
 // 获取小程序所需配置信息
-const get = () => {
- return request('GET', 'info/getinfo')
+const get = (params) => {
+  return request('GET', 'info/getinfo', params)
   // return api('info/get')
 }
 
@@ -23,7 +23,11 @@ const setInfo = params => {
   return api('info/setInfo', obj)
 }
 
+const getopenid = ({ code }) => request('GET', 'auth', { code });
+
+
 module.exports = {
   get,
-  setInfo
+  setInfo,
+  getopenid
 }

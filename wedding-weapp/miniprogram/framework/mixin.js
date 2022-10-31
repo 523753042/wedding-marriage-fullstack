@@ -16,6 +16,7 @@ const mixin = {
   onReady() {
     if (app.globalData.info) {
       sleep(100).then(() => {
+        console.log('app.globalData.info', app.globalData.info);
         this.setData(getNeedInfo(app.globalData.info, this))
       })
     }
@@ -23,10 +24,13 @@ const mixin = {
     Event.on(
       'infoChange',
       info => {
+        console.log('info', info);
+        console.log('getNeedInfo(info, this)', getNeedInfo(info, this));
         this.setData(getNeedInfo(info, this))
       },
       this.route
     )
+
   },
   onUnload() {
     Event.off('infoChange', this.route)
