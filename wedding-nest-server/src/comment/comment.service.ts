@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Connection, Repository } from 'typeorm';
 import { Comment } from './comment.entity';
 import { UpdateResult, DeleteResult } from 'typeorm';
 
@@ -11,7 +11,9 @@ export class CommentService {
      *
      */
     constructor(@InjectRepository(Comment)
-    private contactRepository: Repository<Comment>) {
+    private contactRepository: Repository<Comment>,
+        private connection: Connection
+    ) {
     }
     /**
      *

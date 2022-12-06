@@ -15,16 +15,27 @@ export class AttendController {
   @Get('list')
   getWithPage(@Query() query): Promise<[Attend[], number]> {
     console.log(query);
+
     return this.attendService.findWithPage(query)
   }
 
   @Get('getAll')
-  index(): Promise<Attend[]> {
-    return this.attendService.findAll();
+  async index(): Promise<Attend[]> {
+    const list = await this.attendService.findAll()
+    list.forEach(data => {
+      if (data.attendInfo) {
+        data.attendInfo = JSON.parse(data.attendInfo)
+      }
+      if (data.userInfo) {
+        data.userInfo = JSON.parse(data.userInfo)
+      }
+    })
+    console.log('list', list);
+
+    return list
   }
   @Get('get')
   async findDetail(@Query('openid') openid): Promise<Attend> {
-    console.log('openid', openid);
     const res = await this.attendService.findDetail(openid);
     res.attendInfo = JSON.parse(res.attendInfo);
     res.userInfo = JSON.parse(res.userInfo);

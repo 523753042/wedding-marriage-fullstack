@@ -18,4 +18,8 @@ export class InfoService {
     async add(data) {
         return this.infoRepository.create(data);
     }
+    async saveInfo(data) {
+        
+        return await this.infoRepository.update(data.id, data.data);
+    }
 }

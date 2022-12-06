@@ -12,7 +12,7 @@ export class UploadService {
     }
 
     async uploadDatabaseFile(dataBuffer: Buffer, filename: string) {
-        const newFile = await this.uploadRepository.create({
+        const newFile = this.uploadRepository.create({
             filename,
             data: dataBuffer
         })
@@ -26,5 +26,8 @@ export class UploadService {
             throw new NotFoundException();
         }
         return file;
+    }
+    async deleteById(fileId: number) {
+        return await this.uploadRepository.delete(fileId)
     }
 }

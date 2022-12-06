@@ -16,23 +16,4 @@ export class AuthController {
     const res = await this.authService.auth(query.code);
     return res
   }
-
-  @Post('invokeCloudFunction')
-  @HttpCode(200)
-  invokeCloudFunction(@Body() request): any {
-    const res = this.authService.invokeCloudFunction(request)
-    return res
-  }
-
-  @Get('getAllCommentList')
-  getAllCommentListAndDistinct() {
-    const res = this.authService.getAllCommentList(false)
-    return res
-  }
-
-  @Get('getAttendAll')
-  getAllCommentList() {
-    const res = this.authService.getAttendAll()
-    return res
-  }
 }

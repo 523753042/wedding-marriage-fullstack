@@ -1,16 +1,8 @@
 ## 介绍
 
-node后端+nest框架
+node后端+nest框架,已经重构完成了。
 
-用于给婚礼抽奖H5提供后端api
-
-src下面大部分模块都是之前尝试开发的试验品，主要是提供了typeorm+db数据库+hbs数据模板渲染的玩法，也可供各位自己把玩研究
-
-真正使用到的只有auth模块
-
-提供了获取参加婚宴的列表用于抽奖
-
-提供了所有评论列表用于大屏弹幕循环显示
+提供了小程序和婚礼抽奖的全部api
 
 
 ## 安装 
@@ -30,14 +22,16 @@ wedding-nest-server/src/auth/services/auth.service.ts 依赖对应婚礼小程�
 
 云开发的ENV要在小程序开发者工具里面找到云开发环境，然后找到ID即可
 
+然后把这3个数据放到src目录的weapp-screct-key.ts里面（文件不存在则自己创建）
 ```
+// src/weapp-screct-key.ts
+
 export const config= {
     "appid": "xxx",
     "secret": "xxx",
     "ENV": "xxx"
 }
 ```
-然后把这3个数据放到src目录的weapp-screct-key.ts里面（文件不存在则自己创建）
 ## 本地开发
 ```
 npm run start:dev

@@ -15,7 +15,7 @@ export class CommentController {
    */
   constructor(private commentService: CommentService,
     private remarkService: RemarkService,
-    private authService: AuthService
+    private authService: AuthService,
   ) {
   }
 
@@ -31,7 +31,7 @@ export class CommentController {
       return this.commentService.findDeletedAll();
     }
     if (isDel && isDel == '0') {
-      return this.commentService.findAll()
+      return this.commentService.findUnDeletedAll()
     }
     return this.commentService.findAll();
   }

@@ -11,6 +11,9 @@ export class TransformInterceptor implements NestInterceptor {
                 // 1.直接是数据
                 // 2.包了一层有data和code的对象{data:xx,code}
                 // 所以要兼容处理一下
+                if (!data) {
+                    return
+                }
                 if (!data.data && !data.code) {
                     return { data }
                 }
