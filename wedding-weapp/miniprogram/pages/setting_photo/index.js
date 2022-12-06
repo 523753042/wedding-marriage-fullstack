@@ -1,5 +1,8 @@
 const page = require('../../framework/page.js')
-const { uploadImg, delImg } = require('../../services/upload.js')
+const {
+  uploadImg,
+  delImg
+} = require('../../services/upload.js')
 const Event = require('../../lib/event.js')
 const app = getApp()
 page({
@@ -10,6 +13,7 @@ page({
       count: 9,
       success(res) {
         uploadImg(res.tempFilePaths).then(res => {
+          console.log('res', res);
           Event.emit('infoChange', {
             $photos: res
           })
@@ -20,7 +24,9 @@ page({
   // 删除图片
   del({
     currentTarget: {
-      dataset: { item }
+      dataset: {
+        item
+      }
     }
   }) {
     this.$alert('确认删除该张图片？')
@@ -28,6 +34,7 @@ page({
         return delImg(item.id)
       })
       .then(res => {
+        console.log('res', res);
         Event.emit('infoChange', {
           $photos: res
         })

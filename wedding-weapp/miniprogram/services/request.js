@@ -49,10 +49,9 @@ const api = (url, data = {}) => {
       }
     })
 }
-
+const baseUrl = 'https://www.xtybusiness.cn/api/';
 const request = (method, url, data = {}) => {
   return new Promise((resolve, reject) => {
-    const baseUrl = 'https://www.xtybusiness.cn/api/';
     if (map[url]) {
       wx.showLoading({
         title: '不要着急嘛...'
@@ -113,5 +112,6 @@ const request = (method, url, data = {}) => {
 
 module.exports = {
   api,
-  request
+  request,
+  baseUrl
 }

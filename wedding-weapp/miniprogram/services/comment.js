@@ -1,8 +1,14 @@
-const { api, request } = require('./request.js')
-const { dateFormat } = require('../lib/util.js')
+const {
+  request
+} = require('./request.js')
+const {
+  dateFormat
+} = require('../lib/util.js')
 
 function parseComment(data) {
-  const { time } = data
+  const {
+    time
+  } = data
   data.time = dateFormat(time, 'yyyy.mm.dd HH:MM:ss')
   return data
 }

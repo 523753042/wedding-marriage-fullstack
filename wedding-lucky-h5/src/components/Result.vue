@@ -33,7 +33,7 @@
           :key="j"
           :data-res="data._id"
         >
-          <span v-if="data"> {{ data.nickName }}</span>
+          <span v-if="data"> {{ data.userInfo.nickName }}</span>
         </span>
       </span>
     </div>

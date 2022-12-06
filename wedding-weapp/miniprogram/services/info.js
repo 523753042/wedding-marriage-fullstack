@@ -1,5 +1,4 @@
 const {
-  api,
   request
 } = require('./request.js')
 
@@ -20,10 +19,14 @@ const setInfo = params => {
     id: params.id,
     data
   }
-  return api('info/setInfo', obj)
+  return request('POST', 'info/setInfo', obj)
 }
 
-const getopenid = ({ code }) => request('GET', 'auth', { code });
+const getopenid = ({
+  code
+}) => request('GET', 'auth', {
+  code
+});
 
 
 module.exports = {

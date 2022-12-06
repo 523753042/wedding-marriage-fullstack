@@ -1,11 +1,20 @@
-const { setInfo } = require('./info.js')
-const { hint } = require('../framework/message.js')
-
+const {
+  setInfo
+} = require('./info.js')
+const {
+  hint
+} = require('../framework/message.js')
+const {
+  request,
+  baseUrl
+} = require('./request.js')
 // 保存数据信息
 const saveData = data => {
   let page = getCurrentPages()
   page = page[page.length - 1]
-  const { $_id } = page.data
+  const {
+    $_id
+  } = page.data
   wx.showLoading({
     title: `数据保存中...`,
     mask: true
@@ -31,6 +40,15 @@ const uploadFile = (cloudPath, filePath) => {
     })
   })
 }
+/**
+ * 获取图片地址
+ */
+const getImageUrl = ids => {
+  return ids.map(id => ({
+    id,
+    url: `${baseUrl}/upload/${id}/readimage`
+  }))
+};
 // 获取链接地址
 const getUrl = ids => {
   wx.showLoading({
@@ -40,7 +58,9 @@ const getUrl = ids => {
   return new Promise((resolve, reject) => {
     wx.cloud.getTempFileURL({
       fileList: ids,
-      success({ fileList }) {
+      success({
+        fileList
+      }) {
         resolve(
           fileList.map(item => {
             return {
@@ -65,10 +85,10 @@ const getFileName = name => {
 const uploadImg = filePaths => {
   const ids = []
   // 上传图片
-  let resolve = Promise.resolve()
+  let resolve = Promise.resolve();
+  console.log('filePaths', filePaths);
   for (let i = 0; i < filePaths.length; i++) {
     resolve = resolve.then(() => {
-      const cloudPath = `photo/${getFileName(filePaths[i])}`
       const path = filePaths[i]
       if (i === 0) {
         wx.showLoading({
@@ -76,8 +96,12 @@ const uploadImg = filePaths => {
           mask: true
         })
       }
-      return uploadFile(cloudPath, path)
-        .then(id => {
+      return newUploadFile({
+          path,
+          name: '',
+        })
+        .then(res => {
+          const id = res.data.id;
           wx.showLoading({
             title: `正在上传第${i + 2}张图片`,
             mask: true
@@ -95,30 +119,40 @@ const uploadImg = filePaths => {
 
   // 获取真实链接地址
   resolve = resolve.then(() => {
-    return getUrl(ids)
+    return getImageUrl(ids)
   })
   // 存储数据库
   let page = getCurrentPages()
   page = page[page.length - 1]
-  const { $_id, $photos } = page.data
+  const {
+    $_id,
+    $photos
+  } = page.data;
   resolve = resolve.then(res => {
-    if (!res.length) return Promise.reject('上传失败')
+    if (!ids.length) return Promise.reject('上传失败');
     $photos.push(...res)
-    return saveData({ $photos })
+    '11'.toString()
+    return saveData({
+      $photos: $photos.filter(p => {
+        console.log('p', p.id);
+        return !p.id.toString().startsWith('cloud')
+        return true
+      })
+    })
   })
 
   // 返回数据
   resolve = resolve
     .then(() => {
       wx.hideLoading({
-fail() {}
-})
+        fail() {}
+      })
       return $photos
     })
     .catch(err => {
       wx.hideLoading({
-fail() {}
-})
+        fail() {}
+      })
       hint(err)
       return Promise.reject(err)
     })
@@ -129,25 +163,35 @@ const delImg = id => {
   // 修改数据库
   let page = getCurrentPages()
   page = page[page.length - 1]
-  let { $_id, $photos } = page.data
-  $photos = $photos.filter(item => item.id !== id)
+  let {
+    $_id,
+    $photos
+  } = page.data
+  $photos = $photos.filter(item => item.id !== id);
   const params = {
     id: $_id,
     data: {
       $photos
     }
   }
-  return Promise.all([setInfo(params), del([id]).catch(null)]).then(
-    () => $photos
+  return Promise.all([setInfo(params), delFile(id)]).then(
+    () => {
+      console.log('$photos', $photos);
+      return $photos
+    }
   )
-
-  return
 }
+const delFile = id => {
+  return request('GET', `upload/${id}/delete`)
+}
+
 const del = ids => {
   return new Promise((resolve, reject) => {
     wx.cloud.deleteFile({
       fileList: ids,
-      success({ fileList }) {
+      success({
+        fileList
+      }) {
         resolve(fileList.map(item => item.fileID))
       },
       fail() {
@@ -157,36 +201,40 @@ const del = ids => {
   })
 }
 
-const uploadMusic = (name, filePath) => {
-  const fileName = getFileName(name)
-  const cloudPath = `music/${fileName}`
-  wx.showLoading({
-    title: `上传中...`,
-    mask: true
+const newUploadFile = ({
+  path,
+  name
+}) => {
+  console.log('filePath', path);
+  console.log('fileName', name);
+  return new Promise((resolve, reject) => {
+    wx.uploadFile({
+      url: `${baseUrl}/upload/file`,
+      filePath: path,
+      name: 'file',
+      formData: {
+        originalname: name
+      },
+      success(res) {
+        resolve(JSON.parse(res.data))
+      },
+      fail(err) {
+        console.log('err', err);
+        reject(err)
+      }
+    })
   })
-  return uploadFile(cloudPath, filePath)
-    .then(id => {
-      // 获取链接地址
-      return getUrl([id])
-    })
-    .then(res => {
-      const music = Object.assign({}, res[0], { name })
-      return saveData({ music })
-    })
-    .then(res => {
-      hint('上传成功！')
-      return res
-    })
-    .catch(err => {
-      wx.hideLoading({
-fail() {}
-})
-      console.log(err)
-    })
 }
 
+const newUpLoad = (filePath, fileName) => {
+
+
+}
+
+
+
 module.exports = {
+  newUploadFile,
   uploadImg,
   delImg,
-  uploadMusic
 }

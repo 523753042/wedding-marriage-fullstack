@@ -1,109 +1,68 @@
 <template>
-  <div id="root">
-    <header>
-      <Publicity v-show="!running" />
-      <el-button class="res" type="text" @click="showResult = true">
-        抽奖结果
-      </el-button>
-      <el-button class="con" type="text" @click="showConfig = true">
-        抽奖配置
-      </el-button>
-    </header>
+    <div id="root">
+        <header>
+            <Publicity v-show="!running" />
+            <el-button class="res" type="text" @click="showResult = true">
+                抽奖结果
+            </el-button>
+            <el-button class="con" type="text" @click="showConfig = true">
+                抽奖配置
+            </el-button>
+        </header>
 
-    <vue-baberrage
-      class="baberrage"
-      :lanesCount="3"
-      :isShow="true"
-      :barrageList="barrageList"
-      :loop="true"
-    >
-    </vue-baberrage>
-    <div id="main" :class="{ mask: showRes }"></div>
+        <vue-baberrage class="baberrage" :lanesCount="3" :isShow="true" :barrageList="barrageList" :loop="true">
+        </vue-baberrage>
+        <div id="main" :class="{ mask: showRes }"></div>
 
-    <div v-if="attendList.length > 0" id="tags">
-      <ul v-for="item in attendList" :key="item.key">
-        <li>
-          <a
-            href="javascript:void(0);"
-            :style="{
+        <div v-if="attendList.length > 0" id="tags">
+            <ul v-for="item in attendList" :key="item.key">
+                <li>
+                    <a href="javascript:void(0);" :style="{
               color: '#fff',
-            }"
-          >
-            {{ item.nickName }}
-            <img
-              v-if="item.avatarUrl"
-              :src="item.avatarUrl"
-              :width="50"
-              :height="50"
-            />
-          </a>
-        </li>
-      </ul>
-    </div>
-    <transition name="bounce">
-      <div id="resbox" v-show="showRes">
-        <p @click="showRes = false">{{ categoryName }}抽奖结果：</p>
-        <div class="container">
-          <span
-            v-for="item in resArr"
-            :key="item._id"
-            class="itemres"
-            :style="resCardStyle"
-            :data-id="item"
-            @click="showRes = false"
-            :class="{
+            }">
+                        {{ item.userInfo.nickName }}
+                        <img v-if="item.userInfo.avatarUrl" :src="item.userInfo.avatarUrl" :width="50" :height="50" />
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <transition name="bounce">
+            <div id="resbox" v-show="showRes">
+                <p @click="showRes = false">{{ categoryName }}抽奖结果：</p>
+                <div class="container">
+                    <span v-for="item in resArr" :key="item._id" class="itemres" :style="resCardStyle" :data-id="item"
+                          @click="showRes = false" :class="{
               numberOver:
                 !!photos.find((d) => d.id === item) ||
                 !!list.find((d) => d.key === item),
-            }"
-          >
-            <img :src="item.avatarUrl" alt="photo" :width="160" :height="160" />
-            <div class="name">{{ item.nickName }}</div>
-          </span>
-        </div>
-      </div>
-    </transition>
+            }">
+                        <img :src="item.userInfo.avatarUrl" alt="photo" :width="160" :height="160" />
+                        <div class="name">{{ item.userInfo.nickName }}</div>
+                    </span>
+                </div>
+            </div>
+        </transition>
 
-    <el-button
-      class="audio"
-      type="text"
-      @click="
+        <el-button class="audio" type="text" @click="
         () => {
           playAudio(!audioPlaying);
         }
-      "
-    >
-      <i
-        class="iconfont"
-        :class="[audioPlaying ? 'iconstop' : 'iconplay1']"
-      ></i>
-    </el-button>
+      ">
+            <i class="iconfont" :class="[audioPlaying ? 'iconstop' : 'iconplay1']"></i>
+        </el-button>
 
-    <LotteryConfig :visible.sync="showConfig" @resetconfig="reloadTagCanvas" />
-    <Tool
-      @toggle="toggle"
-      @resetConfig="reloadTagCanvas"
-      @getPhoto="getPhoto"
-      :running="running"
-      :closeRes="closeRes"
-    />
-    <Result :visible.sync="showResult"></Result>
+        <LotteryConfig :visible.sync="showConfig" @resetconfig="reloadTagCanvas" />
+        <Tool @toggle="toggle" @resetConfig="reloadTagCanvas" @getPhoto="getPhoto" :running="running"
+              :closeRes="closeRes" />
+        <Result :visible.sync="showResult"></Result>
 
-    <span class="copy-right"> Copyright@523753042@qq.com </span>
+        <span class="copy-right"> Copyright@523753042@qq.com </span>
 
-    <audio
-      id="audiobg"
-      preload="auto"
-      controls
-      autoplay
-      loop
-      @play="playHandler"
-      @pause="pauseHandler"
-    >
-      <source :src="audioSrc" />
-      你的浏览器不支持audio标签
-    </audio>
-  </div>
+        <audio id="audiobg" preload="auto" controls autoplay loop @play="playHandler" @pause="pauseHandler">
+            <source :src="audioSrc" />
+            你的浏览器不支持audio标签
+        </audio>
+    </div>
 </template>
 <script>
 import LotteryConfig from '@/components/LotteryConfig';
@@ -117,14 +76,14 @@ import {
   resultField,
   newLotteryField,
   conversionCategoryName,
-  listField
+  listField,
 } from '@/helper/index';
 import { randomNum } from '@/helper/algorithm';
 import Result from '@/components/Result';
 import { database, DB_STORE_NAME } from '@/helper/db';
-import { MESSAGE_TYPE } from 'vue-baberrage'
-import { getAttendList, getAllCommentList } from '@/servers/attend'
-import { defaultConfig } from '@/store'
+import { MESSAGE_TYPE } from 'vue-baberrage';
+import { getAttendList, getAllCommentList } from '@/servers/attend';
+import { defaultConfig } from '@/store';
 export default {
   name: 'App',
 
@@ -146,7 +105,7 @@ export default {
     config: {
       get() {
         return this.$store.state.config;
-      }
+      },
     },
     result: {
       get() {
@@ -154,7 +113,7 @@ export default {
       },
       set(val) {
         this.$store.commit('setResult', val);
-      }
+      },
     },
     list() {
       return this.$store.state.list;
@@ -174,7 +133,7 @@ export default {
     },
     photos() {
       return this.$store.state.photos;
-    }
+    },
   },
   created() {
     const data = getData(configField);
@@ -189,7 +148,7 @@ export default {
     const newLottery = getData(newLotteryField);
     if (newLottery) {
       const config = this.config;
-      newLottery.forEach(item => {
+      newLottery.forEach((item) => {
         this.$store.commit('setNewLottery', item);
         if (!config[item.key]) {
           this.$set(config, item.key, 0);
@@ -202,7 +161,6 @@ export default {
     if (list) {
       this.$store.commit('setList', list);
     }
-
   },
 
   data() {
@@ -217,7 +175,7 @@ export default {
       audioSrc: bgaudio,
       currentId: 0,
       barrageList: [],
-      attendList: []
+      attendList: [],
     };
   },
   watch: {
@@ -227,7 +185,7 @@ export default {
         this.$nextTick(() => {
           this.reloadTagCanvas();
         });
-      }
+      },
     },
     photos: {
       deep: true,
@@ -235,14 +193,14 @@ export default {
         this.$nextTick(() => {
           this.reloadTagCanvas();
         });
-      }
-    }
+      },
+    },
   },
   mounted() {
     this.startTagCanvas();
     this.getAllCommentList();
     setInterval(() => {
-      this.getAllCommentList()
+      this.getAllCommentList();
     }, 30000);
     this.getAttendList();
     setTimeout(() => {
@@ -255,32 +213,31 @@ export default {
   },
   methods: {
     getAllCommentList() {
-      getAllCommentList().then(res => {
-        this.barrageList = res.map(comment => {
+      getAllCommentList().then((res) => {
+        this.barrageList = res.data.map((comment) => {
           return {
             id: ++comment.currentId,
             avatar: comment.avatarUrl,
             msg: comment.comment,
             style: {
-              fontSize: 25
+              fontSize: 25,
             },
             time: 5,
-            type: MESSAGE_TYPE.NORMAL
-          }
-        })
-      })
+            type: MESSAGE_TYPE.NORMAL,
+          };
+        });
+      });
     },
     getAttendList() {
-      getAttendList().then(res => {
-        console.log('res', res);
-        this.attendList = res;
-        if (res) {
+      getAttendList().then((res) => {
+        this.attendList = res.data;
+        console.log('attendList', this.attendList);
+        if (res.data) {
           defaultConfig.number = this.attendList.length;
-          this.$store.commit('setAttendList', res);
+          this.$store.commit('setAttendList', res.data);
           this.$store.commit('setConfig', { ...defaultConfig });
-          console.log('barrageList', this.barrageList.length)
         }
-      })
+      });
     },
     reportWindowSize() {
       const AppCanvas = this.$el.querySelector('#rootcanvas');
@@ -309,7 +266,7 @@ export default {
       });
     },
     getPhoto() {
-      database.getAll(DB_STORE_NAME).then(res => {
+      database.getAll(DB_STORE_NAME).then((res) => {
         if (res && res.length > 0) {
           this.$store.commit('setPhotos', res);
         }
@@ -334,7 +291,7 @@ export default {
         dragControl: 1,
         textHeight: 20,
         noSelect: true,
-        lock: 'xy'
+        lock: 'xy',
       });
     },
     reloadTagCanvas() {
@@ -377,7 +334,7 @@ export default {
           allin ? [] : this.allresult,
           num,
           category
-        )
+        );
         this.resArr = resArr;
         this.category = category;
         if (!this.result[category]) {
@@ -385,7 +342,7 @@ export default {
         }
         const oldRes = this.result[category] || [];
         const data = Object.assign({}, this.result, {
-          [category]: oldRes.concat(resArr)
+          [category]: oldRes.concat(resArr),
         });
         this.result = data;
         window.TagCanvas.SetSpeed('rootcanvas', [5, 1]);
@@ -394,18 +351,19 @@ export default {
     },
     // 处理抽奖的
     luckydrawHandler(wons = [], num, category) {
-      debugger
       const res = [];
-      if (category === 'firstPrize') {
-        const current = this.cheatFunction()
+      // 这是作弊用的
+      // if (category === 'firstPrize') {
+      if (false) {
+        const current = this.cheatFunction();
         if (current > -1) {
           wons.push(this.attendList[current]);
           res.push(this.attendList[current]);
         }
       } else {
         for (let index = 0; index < num; index++) {
-          const total = [...this.attendList].filter(attend => {
-            return wons.findIndex(won => won._id === attend._id) < 0
+          const total = [...this.attendList].filter((attend) => {
+            return wons.findIndex((won) => won._id === attend._id) < 0;
           });
           const current = total[randomNum(1, total.length) - 1];
           if (current) {
@@ -418,13 +376,14 @@ export default {
       return res;
     },
     cheatFunction() {
+      // 作弊的话，需要手动输入需要获奖的ID
       const dajieId = 'ohTxs5SXPV1B-on39VmuMuGmkJGk';
-      const index = this.attendList.findIndex(attend => {
-        return attend._id = dajieId
-      })
-      return index
-    }
-  }
+      const index = this.attendList.findIndex((attend) => {
+        return (attend._id = dajieId);
+      });
+      return index;
+    },
+  },
 };
 </script>
 <style lang="scss">
