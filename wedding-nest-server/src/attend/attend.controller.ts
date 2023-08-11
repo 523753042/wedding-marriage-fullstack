@@ -13,10 +13,18 @@ export class AttendController {
   }
 
   @Get('list')
-  getWithPage(@Query() query): Promise<[Attend[], number]> {
+  async getWithPage(@Query() query): Promise<[Attend[], number]> {
     console.log(query);
-
-    return this.attendService.findWithPage(query)
+    const list = await this.attendService.findWithPage(query)
+    list[0].forEach(data => {
+      if (data.attendInfo) {
+        data.attendInfo = JSON.parse(data.attendInfo)
+      }
+      if (data.userInfo) {
+        data.userInfo = JSON.parse(data.userInfo)
+      }
+    })
+    return list
   }
 
   @Get('getAll')
@@ -30,20 +38,23 @@ export class AttendController {
         data.userInfo = JSON.parse(data.userInfo)
       }
     })
-    console.log('list', list);
-
     return list
   }
   @Get('get')
   async findDetail(@Query('openid') openid): Promise<Attend> {
     const res = await this.attendService.findDetail(openid);
-    res.attendInfo = JSON.parse(res.attendInfo);
-    res.userInfo = JSON.parse(res.userInfo);
+    if (res && res.attendInfo) {
+      res.attendInfo = JSON.parse(res.attendInfo);
+    }
+    if (res && res.userInfo) {
+      res.userInfo = JSON.parse(res.userInfo);
+    }
     return res
   }
 
   @Post('add')
   async create(@Body() attend: Attend): Promise<any> {
+    attend.time = new Date().valueOf().toString()
     attend.attendInfo = JSON.stringify(attend.attendInfo)
     attend.userInfo = JSON.stringify(attend.attendInfo)
     return this.attendService.create(attend);

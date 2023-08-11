@@ -14,7 +14,7 @@ import { EggModule } from './egg/egg.module';
   imports: [ContactsModule, AttendModule, AuthModule, CommentModule,InfoModule,
     TypeOrmModule.forRoot({
       type: 'sqlite',
-      database: 'db',
+      database: 'db.sqlite',
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
       synchronize: true,
     }),

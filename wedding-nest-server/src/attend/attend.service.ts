@@ -22,11 +22,14 @@ export class AttendService {
         console.log(pageSize * pageNum - pageSize);
         return await this.contactRepository.findAndCount({
             skip: pageSize * pageNum - pageSize,
+            order: { time: 'DESC' },
         });
     }
 
     async findAll(): Promise<Attend[]> {
-        return await this.contactRepository.find();
+        return await this.contactRepository.find({
+            order: { time: 'DESC' },
+        });
     }
 
     async findDetail(openid): Promise<Attend> {
@@ -39,7 +42,7 @@ export class AttendService {
 
     async update(attend: Attend): Promise<UpdateResult> {
         console.log();
-        
+
         return await this.contactRepository.update(attend.id, attend);
     }
 

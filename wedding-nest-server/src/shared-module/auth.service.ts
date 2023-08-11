@@ -16,11 +16,9 @@ export class AuthService {
     constructor(private http: HttpService) {
         this.appid = config.appid;
         this.screctKey = config.secret;
-        this.ENV = config.ENV
     }
     private appid
     private screctKey
-    private ENV
 
     /**
      * 

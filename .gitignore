@@ -2,7 +2,8 @@
 **/dist
 .DS_Store
 **/node_modules
-**/weapp-screct-key.*
+**/weapp-screct-key.ts
+**/db.sqlite
 wedding-nest-server/dist/**
 
 # Logs

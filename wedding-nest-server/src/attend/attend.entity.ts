@@ -9,7 +9,7 @@ export class Attend {
         nullable: true
     })
     _id: string;
-    
+
     @Column()
     attendInfo: string;
 
@@ -17,5 +17,5 @@ export class Attend {
     userInfo: string;
 
     @Column()
-    time: Date;
+    time: string;
 }
